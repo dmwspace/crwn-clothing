@@ -34,8 +34,18 @@ const SignInForm = () => {
           const response = signInAuthUserWithEmailAndPassword(email, password);
           console.log('Response: ', response);
           resetFormFields();  
-        } catch(error) {
-            console.log(`There was an error: ${error}`)
+        } catch (error) {
+            switch (error.code) {
+                case 'auth/wrong-password':
+                    alert('incorrect password for email');
+                    break;
+                case 'auth/user-not-found':
+                    alert('no user associated with this email');
+                    break;
+                default:
+                    alert(`There was an error: ${error}`);
+            }
+            
         }
     }
 
